@@ -32,6 +32,10 @@ def transcribe_audio_to_text(audio_path):
     os.remove(wav_path)
     return text
 
+@app.route("/")
+def index():
+    return jsonify({"message": "Welcome to the YouTube-to-Text API!"})
+
 @app.route("/api/yt-to-text", methods=["POST"])
 def yt_to_text():
     data = request.json
@@ -46,8 +50,6 @@ def yt_to_text():
         return jsonify({"text": transcript})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-import os
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
